@@ -38,7 +38,9 @@ async function registerUserController(req, res) {
             { expiresIn: "1d" }
         )
 
-        res.cookie("token", token)
+        res.cookie("token", token, { httpOnly: true })
+
+        console.log("✅ User Create an name was :", user.username)
 
         res.status(201).json({
             message: "User created",
@@ -94,7 +96,9 @@ async function login(req, res) {
             { expiresIn: "1d" }
         )
 
-        res.cookie("token", token)
+        res.cookie("token", token, { httpOnly: true })
+
+        console.log("✅ User logged in:", user.email)
 
         res.status(200).json({
             message: "User logged in successfully",
@@ -143,9 +147,9 @@ async function getMeController(req, res) {
         const user = await userModel.findById(req.user.id)
 
         res.status(200).json({
-            user : {
-                id : user._id,
-                username : user.username,
+            user: {
+                id: user._id,
+                username: user.username,
                 email: user.email
             }
         })
