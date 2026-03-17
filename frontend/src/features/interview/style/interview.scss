@@ -17,7 +17,6 @@ $severity-low: #3fb950;
     display: none;
 }
 
-// ── Page Shell ────────────────────────────────────────────────────────────────
 .interview-page {
     width: 100%;
     min-height: 100vh;
@@ -25,21 +24,22 @@ $severity-low: #3fb950;
     color: $text-primary;
     font-family: $font-stack;
     display: flex;
-    align-items: stretch;
-    padding: 1.5rem;
+    flex-direction: column; // ← ye add karo, flex-direction change
     box-sizing: border-box;
+    padding: 0; // ← padding hata do yahan se
 }
 
-// ── 3-Column Layout ───────────────────────────────────────────────────────────
 .interview-layout {
     display: flex;
     width: 100%;
     max-width: 1280px;
-    margin: 0 auto;
+    margin: 1.5rem auto; // ← upar se margin
+    padding: 0 1.5rem; // ← side padding
     background-color: $bg-card;
     border: 1px solid $border-color;
     border-radius: 1rem;
     justify-content: space-between;
+    flex: 1;
 }
 
 .interview-divider {
