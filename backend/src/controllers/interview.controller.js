@@ -25,7 +25,7 @@ async function interview(req, res) {
 
         res.status(201).json({
             message: "interview report gen successfully...",
-            interViewReport
+            interviewReport: interViewReport
         })
 
     } catch (err) {

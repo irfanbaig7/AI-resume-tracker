@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react'
-import '../styles/interview.scss'
+import '../style/interview.scss'
 import { useInterview } from '../hooks/useInterview'
 import { useParams } from 'react-router'
-
+import Navbar from '../../../components/Navbar'
+import { useNavigate } from 'react-router'
 
 
 const NAV_ITEMS = [
@@ -13,7 +14,7 @@ const NAV_ITEMS = [
 
 // ── Sub-components ────────────────────────────────────────────────────────────
 const QuestionCard = ({ item, index }) => {
-    const [ open, setOpen ] = useState(false)
+    const [open, setOpen] = useState(false)
     return (
         <div className='q-card'>
             <div className='q-card__header' onClick={() => setOpen(o => !o)}>
@@ -58,15 +59,16 @@ const RoadMapDay = ({ day }) => (
 
 // ── Main Component ────────────────────────────────────────────────────────────
 const Interview = () => {
-    const [ activeNav, setActiveNav ] = useState('technical')
+    const [activeNav, setActiveNav] = useState('technical')
     const { report, getReportById, loading, getResumePdf } = useInterview()
     const { interviewId } = useParams()
+    const navigate = useNavigate()
 
     useEffect(() => {
         if (interviewId) {
             getReportById(interviewId)
         }
-    }, [ interviewId ])
+    }, [interviewId])
 
 
 
@@ -84,12 +86,18 @@ const Interview = () => {
 
 
     return (
+
         <div className='interview-page'>
+            <Navbar />
             <div className='interview-layout'>
 
                 {/* ── Left Nav ── */}
                 <nav className='interview-nav'>
                     <div className="nav-content">
+                        <button onClick={() => navigate('/home')} className='back-btn'>
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="15 18 9 12 15 6" /></svg>
+                            Back to Home
+                        </button>
                         <p className='interview-nav__label'>Sections</p>
                         {NAV_ITEMS.map(item => (
                             <button

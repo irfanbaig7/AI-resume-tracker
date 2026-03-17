@@ -1,0 +1,176 @@
+.navbar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.9rem 2rem;
+    background-color: rgba(#161616, 0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    box-sizing: border-box;
+
+    &__brand {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        text-decoration: none;
+        color: whitesmoke;
+        font-size: 1.1rem;
+        font-weight: 700;
+        letter-spacing: -0.02em;
+    }
+
+    &__logo {
+        font-size: 1.2rem;
+    }
+
+    &__right {
+        display: flex;
+        align-items: center;
+    }
+
+    // ── Auth links (logged out) ──
+    &__auth-links {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    &__link {
+        color: rgba(255,255,255,0.6);
+        text-decoration: none;
+        font-size: 0.875rem;
+        transition: color 0.2s;
+
+        &:hover { color: whitesmoke; }
+    }
+
+    &__btn {
+        background-color: #d20d3b;
+        color: white;
+        text-decoration: none;
+        font-size: 0.85rem;
+        font-weight: 600;
+        padding: 0.5rem 1.1rem;
+        border-radius: 0.6rem;
+        transition: background-color 0.2s, transform 0.15s;
+
+        &:hover {
+            background-color: #e1034d;
+            transform: scale(0.98);
+        }
+    }
+
+    // ── Profile (logged in) ──
+    &__profile {
+        position: relative;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        cursor: pointer;
+        padding: 0.4rem 0.75rem;
+        border-radius: 0.6rem;
+        transition: background-color 0.2s;
+        user-select: none;
+
+        &:hover {
+            background-color: rgba(255,255,255,0.06);
+        }
+
+        svg { color: rgba(255,255,255,0.4); }
+    }
+
+    &__avatar {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        background-color: #d20d3b;
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.8rem;
+        font-weight: 700;
+        flex-shrink: 0;
+    }
+
+    &__username {
+        font-size: 0.875rem;
+        color: whitesmoke;
+        font-weight: 500;
+    }
+
+    // ── Dropdown ──
+    &__dropdown {
+        position: absolute;
+        top: calc(100% + 0.5rem);
+        right: 0;
+        min-width: 200px;
+        background-color: #1e1e1e;
+        border: 1px solid rgba(255,255,255,0.1);
+        border-radius: 0.75rem;
+        overflow: hidden;
+        box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+        animation: dropFade 0.15s ease;
+    }
+
+    &__dropdown-header {
+        padding: 0.85rem 1rem;
+
+        .name {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: whitesmoke;
+            margin: 0 0 0.15rem;
+        }
+
+        .email {
+            font-size: 0.75rem;
+            color: rgba(255,255,255,0.4);
+            margin: 0;
+        }
+    }
+
+    &__dropdown-divider {
+        height: 1px;
+        background-color: rgba(255,255,255,0.08);
+    }
+
+    &__dropdown-item {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.75rem 1rem;
+        background: none;
+        border: none;
+        font-size: 0.85rem;
+        cursor: pointer;
+        color: rgba(255,255,255,0.6);
+        transition: background-color 0.15s, color 0.15s;
+        text-align: left;
+        font-family: inherit;
+
+        &:hover {
+            background-color: rgba(255,255,255,0.05);
+            color: whitesmoke;
+        }
+
+        &--danger {
+            color: #ff4d6d;
+
+            &:hover {
+                background-color: rgba(#ff4d6d, 0.08);
+                color: #ff4d6d;
+            }
+        }
+    }
+}
+
+@keyframes dropFade {
+    from { opacity: 0; transform: translateY(-6px); }
+    to   { opacity: 1; transform: translateY(0); }
+}

@@ -1,0 +1,260 @@
+$accent: #d20d3b;
+$accent-bright: #e1034d;
+$bg: #161616;
+$text: whitesmoke;
+$muted: rgba(255, 255, 255, 0.45);
+$border: rgba(255, 255, 255, 0.07);
+
+.landing {
+    width: 100%;
+    min-height: 100vh;
+    background-color: $bg;
+    color: $text;
+
+    // ── Hero ──
+    &__hero {
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 88vh;
+        padding: 4rem 2rem;
+        overflow: hidden;
+        text-align: center;
+    }
+
+    &__hero-glow {
+        position: absolute;
+        top: -80px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 600px;
+        height: 600px;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba($accent, 0.18) 0%, transparent 70%);
+        pointer-events: none;
+        animation: pulse 4s ease-in-out infinite;
+    }
+
+    &__hero-content {
+        position: relative;
+        max-width: 760px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1.5rem;
+    }
+
+    &__badge {
+        display: inline-block;
+        font-size: 0.75rem;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: $accent-bright;
+        background-color: rgba($accent, 0.1);
+        border: 1px solid rgba($accent, 0.3);
+        padding: 0.35rem 0.9rem;
+        border-radius: 2rem;
+    }
+
+    &__headline {
+        font-size: clamp(2.4rem, 6vw, 4rem);
+        font-weight: 800;
+        line-height: 1.1;
+        letter-spacing: -0.03em;
+        margin: 0;
+
+        &--accent {
+            color: $accent-bright;
+        }
+    }
+
+    &__subline {
+        font-size: 1.05rem;
+        color: $muted;
+        line-height: 1.7;
+        max-width: 580px;
+        margin: 0;
+    }
+
+    &__cta-group {
+        display: flex;
+        align-items: center;
+        gap: 1.25rem;
+        flex-wrap: wrap;
+        justify-content: center;
+        margin-top: 0.5rem;
+    }
+
+    &__cta-primary {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        background-color: $accent-bright;
+        color: white;
+        text-decoration: none;
+        font-size: 0.95rem;
+        font-weight: 600;
+        padding: 0.75rem 1.5rem;
+        border-radius: 0.75rem;
+        transition: background-color 0.2s, transform 0.15s;
+
+        &:hover {
+            background-color: darken($accent-bright, 5%);
+            transform: scale(0.98);
+        }
+    }
+
+    &__cta-secondary {
+        color: $muted;
+        text-decoration: none;
+        font-size: 0.9rem;
+        transition: color 0.2s;
+
+        &:hover {
+            color: $text;
+        }
+    }
+
+    // ── Features ──
+    &__features {
+        padding: 5rem 2rem;
+        max-width: 1100px;
+        margin: 0 auto;
+        text-align: center;
+    }
+
+    &__section-label {
+        font-size: 0.72rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        color: $accent-bright;
+        margin: 0 0 0.75rem;
+    }
+
+    &__section-title {
+        font-size: clamp(1.6rem, 3vw, 2.2rem);
+        font-weight: 800;
+        letter-spacing: -0.02em;
+        margin: 0 0 3rem;
+        color: $text;
+    }
+
+    &__features-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 1.25rem;
+        text-align: left;
+    }
+
+    // ── CTA Banner ──
+    &__banner {
+        margin: 2rem auto 4rem;
+        max-width: 900px;
+        padding: 3rem 2.5rem;
+        background: linear-gradient(135deg, rgba($accent, 0.12), rgba($accent, 0.04));
+        border: 1px solid rgba($accent, 0.2);
+        border-radius: 1.25rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1.5rem;
+        text-align: center;
+
+        h2 {
+            font-size: clamp(1.4rem, 3vw, 1.9rem);
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            margin: 0;
+        }
+    }
+
+    // ── Footer ──
+    &__footer {
+        border-top: 1px solid $border;
+        padding: 1.75rem 2rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 1rem;
+    }
+
+    &__footer-brand {
+        font-weight: 700;
+        font-size: 0.95rem;
+        color: $text;
+    }
+
+    &__footer-links {
+        display: flex;
+        gap: 1.5rem;
+
+        a {
+            font-size: 0.825rem;
+            color: $muted;
+            text-decoration: none;
+            transition: color 0.2s;
+
+            &:hover {
+                color: $text;
+            }
+        }
+    }
+
+    &__footer-copy {
+        font-size: 0.775rem;
+        color: $muted;
+    }
+}
+
+// ── Feature Card ─────────────────────────────────────────────────────────────
+.feature-card {
+    background-color: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    border-radius: 0.875rem;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    transition: border-color 0.2s, background-color 0.2s;
+
+    &:hover {
+        background-color: rgba(255, 255, 255, 0.05);
+        border-color: rgba($accent, 0.25);
+    }
+
+    &__icon {
+        font-size: 1.6rem;
+    }
+
+    h3 {
+        font-size: 1rem;
+        font-weight: 700;
+        margin: 0;
+        color: whitesmoke;
+    }
+
+    p {
+        font-size: 0.85rem;
+        color: rgba(255, 255, 255, 0.45);
+        line-height: 1.6;
+        margin: 0;
+    }
+}
+
+@keyframes pulse {
+
+    0%,
+    100% {
+        opacity: 1;
+        transform: translateX(-50%) scale(1);
+    }
+
+    50% {
+        opacity: 0.7;
+        transform: translateX(-50%) scale(1.05);
+    }
+}

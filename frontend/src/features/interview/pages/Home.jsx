@@ -1,7 +1,8 @@
 import React, { useState, useRef } from 'react'
-import "../styles/Home.scss"
+import "../style/home.scss"
 import { useInterview } from '../hooks/useInterview'
 import { useNavigate } from 'react-router'
+import Navbar from '../../../components/Navbar'
 
 const Home = () => {
 
@@ -34,6 +35,8 @@ const Home = () => {
 
     return (
         <div className='home-page'>
+
+            <Navbar />
 
             {/* Page Header */}
             <header className='page-header'>
