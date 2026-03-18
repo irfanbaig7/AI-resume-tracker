@@ -29,7 +29,15 @@ async function interview(req, res) {
         })
 
     } catch (err) {
-        console.log("Error goit it..", err.message);
+        console.log("Error:", err.message);
+
+        if (err.message?.includes('429') || err.message?.includes('quota') || err.message?.includes('RESOURCE_EXHAUSTED')) {
+            return res.status(429).json({
+                message: "AI service is busy right now. Please wait a minute and try again."
+            })
+        }
+
+        res.status(500).json({ message: "Something went wrong. Please try again." })
     }
 
 }
@@ -65,26 +73,40 @@ async function getAllInterviewReportsController(req, res) {
 
 
 async function generateResumePdfController(req, res) {
-    const { interviewReportId } = req.params
+    try {
 
-    const interviewReport = await interviewReportModel.findById(interviewReportId)
+        const { interviewReportId } = req.params
 
-    if (!interviewReport) {
-        return res.status(404).json({
-            message: "Interview report not found."
+        const interviewReport = await interviewReportModel.findById(interviewReportId)
+
+        if (!interviewReport) {
+            return res.status(404).json({
+                message: "Interview report not found."
+            })
+        }
+
+        const { resume, jobDescription, selfDescription } = interviewReport
+
+        const pdfBuffer = await generateResumePdf({ resume, jobDescription, selfDescription })
+
+        res.set({
+            "Content-Type": "application/pdf",
+            "Content-Disposition": `attachment; filename=resume_${interviewReportId}.pdf`
         })
+
+        res.send(pdfBuffer)
+
+    } catch (err) {
+        console.log("Error:", err.message);
+
+        if (err.message?.includes('429') || err.message?.includes('quota') || err.message?.includes('RESOURCE_EXHAUSTED')) {
+            return res.status(429).json({
+                message: "AI service is busy right now. Please wait a minute and try again."
+            })
+        }
+
+        res.status(500).json({ message: "Something went wrong. Please try again." })
     }
-
-    const { resume, jobDescription, selfDescription } = interviewReport
-
-    const pdfBuffer = await generateResumePdf({ resume, jobDescription, selfDescription })
-
-    res.set({
-        "Content-Type": "application/pdf",
-        "Content-Disposition": `attachment; filename=resume_${interviewReportId}.pdf`
-    })
-
-    res.send(pdfBuffer)
 }
 
 
