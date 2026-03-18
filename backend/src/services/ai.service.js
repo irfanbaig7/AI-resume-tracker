@@ -2,6 +2,7 @@ const { GoogleGenAI } = require("@google/genai");
 const { z } = require("zod");
 const { zodToJsonSchema } = require("zod-to-json-schema");
 const puppeteer = require("puppeteer")
+const chromium = require("@sparticuz/chromium")
 
 const ai = new GoogleGenAI({
     apiKey: process.env.GOOGLEGENAIAPIKEY
@@ -56,31 +57,18 @@ async function generateInterviewReport({ resume, selfDescription, jobDescription
 
 async function generatePdfFromHtml(htmlContent) {
     const browser = await puppeteer.launch({
-        args: [
-            '--no-sandbox',
-            '--disable-setuid-sandbox',
-            '--disable-dev-shm-usage',
-            '--disable-gpu',
-            '--no-first-run',
-            '--no-zygote',
-            '--single-process',
-        ],
-        headless: true
+        args: chromium.args,
+        defaultViewport: chromium.defaultViewport,
+        executablePath: await chromium.executablePath(),
+        headless: chromium.headless,
     })
-    const page = await browser.newPage();
+    const page = await browser.newPage()
     await page.setContent(htmlContent, { waitUntil: "networkidle0" })
-
     const pdfBuffer = await page.pdf({
-        format: "A4", margin: {
-            top: "20mm",
-            bottom: "20mm",
-            left: "15mm",
-            right: "15mm"
-        }
+        format: "A4",
+        margin: { top: "20mm", bottom: "20mm", left: "15mm", right: "15mm" }
     })
-
     await browser.close()
-
     return pdfBuffer
 }
 
