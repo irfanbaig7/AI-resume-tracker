@@ -4,20 +4,24 @@ const interviewReportModel = require("../models/interviewReport.model")
 
 async function interview(req, res) {
     try {
+        let resumeText = ""
 
-        const resumeContent = await (new pdfParse.PDFParse(Uint8Array.from(req.file.buffer))).getText()
+        if (req.file) {
+            const resumeContent = await (new pdfParse.PDFParse(Uint8Array.from(req.file.buffer))).getText()
+            resumeText = resumeContent.text
+        }
 
         const { selfDescription, jobDescription } = req.body
 
         const interviewReportByAi = await generateInterviewReport({
-            resume: resumeContent.text,
+            resume: resumeText,
             selfDescription,
             jobDescription
         })
 
         const interViewReport = await interviewReportModel.create({
             user: req.user.id,
-            resume: resumeContent.text,
+            resume: resumeText,
             selfDescription,
             jobDescription,
             ...interviewReportByAi
@@ -30,16 +34,13 @@ async function interview(req, res) {
 
     } catch (err) {
         console.log("Error:", err.message);
-
         if (err.message?.includes('429') || err.message?.includes('quota') || err.message?.includes('RESOURCE_EXHAUSTED')) {
             return res.status(429).json({
                 message: "AI service is busy right now. Please wait a minute and try again."
             })
         }
-
         res.status(500).json({ message: "Something went wrong. Please try again." })
     }
-
 }
 
 

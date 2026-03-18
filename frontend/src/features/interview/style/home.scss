@@ -220,6 +220,22 @@ $font-stack: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, s
         background-color: rgba($accent, 0.05);
     }
 
+    &.dropzone--selected {
+        border-color: #3fb950;
+        background-color: rgba(#3fb950, 0.05);
+        border-style: solid;
+    }
+
+    &__selected {
+        font-size: 0.75rem;
+        color: #3fb950;
+        font-weight: 600;
+        margin: 0;
+        text-align: center;
+        word-break: break-all;
+    }
+
+
     &__icon {
         color: $accent;
         margin-bottom: 0.25rem;
